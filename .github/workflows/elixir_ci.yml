@@ -1,0 +1,60 @@
+name: Elixir CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: my_test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      # Check out the repository code so the workflow can access it
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Set up the Elixir environment with the required versions
+      - name: Set up Elixir
+        uses: erlef/setup-elixir@v1
+        with:
+          otp-version: '26.0'      # Specifies the OTP (Erlang) version
+          elixir-version: '1.16.0' # Specifies the Elixir version
+
+      # Install the project dependencies using Mix
+      - name: Install dependencies
+        run: mix deps.get
+
+      # Set up the database
+      - name: Setup database
+        env:
+          MIX_ENV: test
+          DATABASE_URL: "ecto://postgres:postgres@localhost/my_test_db"
+        run: |
+          mix ecto.create
+          mix ecto.migrate
+
+      # Verify that the code is formatted according to Elixir's formatter
+      - name: Check code formatting
+        run: mix format --check-formatted
+
+      # Run the test suite to ensure the application is functioning correctly
+      - name: Run tests
+        env:
+          MIX_ENV: test
+        run: mix test
