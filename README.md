@@ -72,11 +72,11 @@ mix test
 
 ## ✨ **Features**
 
-👉 **Natural Language Search** – Users type queries naturally, and AI converts them into structured filters.
-👉 **Real-Time Updates** – **Phoenix LiveView** ensures search results update instantly without reloading the page.
-👉 **AI-Powered Filtering** – **OpenAI GPT-4** translates user queries into **Ecto-compatible filters**.
-👉 **Multi-Language Support** – AI understands and processes queries in multiple languages.
-👉 **Scalable & Flexible** – The search system can be expanded to support additional data sources.
+👉 **Natural Language Search** – Users type queries naturally, and AI converts them into structured filters.  
+👉 **Real-Time Updates** – **Phoenix LiveView** ensures search results update instantly without reloading the page.  
+👉 **AI-Powered Filtering** – **OpenAI GPT-4** translates user queries into **Ecto-compatible filters**.  
+👉 **Multi-Language Support** – AI understands and processes queries in multiple languages.  
+👉 **Scalable & Flexible** – The search system can be expanded to support additional data sources.  
 
 ## 📝 **License**
 
